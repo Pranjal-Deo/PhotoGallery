@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Photo</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Photo Gallery</h2>
+    <a href="/">View All Images</a>
+    <a href="/upload">Upload New Image</a>
+    <a href="/recycle-bin">View Deleted Images</a>
+  </div>
+
+  <div class="content">
+    <div class="upload-container">
+      <h1>Upload a New Photo</h1>
+      <p>Select a photo from your device to upload to the gallery.</p>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="photo" id="file-label" class="custom-file-upload">
+          Choose File
+        </label>
+        <input type="file" name="photo" id="photo" required onchange="displayFileName()">
+        <button type="submit">Upload Photo</button>
+      </form>
+      <a href="/" class="back-link">Back to Gallery</a>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript function to display the file name when a file is selected
+    function displayFileName() {
+      const fileInput = document.getElementById('photo');
+      const fileLabel = document.getElementById('file-label');
+      const fileName = fileInput.files[0] ? fileInput.files[0].name : "Choose File";
+      fileLabel.textContent = fileName;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Gallery</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Photo Gallery</h2>
+    <a href="/">View All Images</a>
+    <a href="/upload">Upload New Image</a>
+    <a href="/recycle-bin">View Deleted Images</a>
+  </div>
+
+  <div class="content">
+    <h1><%= photos[0]?.inRecycleBin ? "Deleted Images" : "All Images" %></h1>
+    <div class="photo-container">
+      <% photos.forEach(photo => { %>
+        <div class="photo">
+          <img src="/uploads/<%= photo.filename %>" alt="<%= photo.originalName %>">
+          <% if (photo.inRecycleBin) { %>
+            <!-- Options for photos in recycle bin -->
+            <form action="/restore/<%= photo._id %>" method="POST" style="display:inline;">
+              <button type="submit">Restore</button>
+            </form>
+            <form action="/permanent-delete/<%= photo._id %>" method="POST" style="display:inline;">
+              <button type="submit">Permanent Delete</button>
+            </form>
+          <% } else { %>
+            <!-- Options for regular photos -->
+            <form action="/delete/<%= photo._id %>" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</body>
+</html>
